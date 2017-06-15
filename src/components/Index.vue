@@ -6,15 +6,30 @@
       <mt-swipe-item><img src="../assets/images/topimg.jpg" /></mt-swipe-item>
     </mt-swipe>
     <div class="title">
-      <h1>花串串<i class="icon-bullhorn" slot="icon"></i></h1>
+      <h1>花串串</h1>
       <p>
 火锅<br />花串串，一家专门做火锅的串串店
       </p>
     </div>
     <mt-navbar v-model="selected">
-      <mt-tab-item id="1"> 优惠</mt-tab-item>
-      <mt-tab-item id="2">商家</mt-tab-item>
-      <mt-tab-item id="3">我的</mt-tab-item>
+      <mt-tab-item id="1">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-bullhorn"></use>
+        </svg>
+        优惠
+      </mt-tab-item>
+      <mt-tab-item id="2">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-shangjia"></use>
+        </svg>
+        商家
+      </mt-tab-item>
+      <mt-tab-item id="3">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-wode"></use>
+        </svg>
+      我的
+      </mt-tab-item>
     </mt-navbar>
 
     <!-- tab-container -->
@@ -59,10 +74,10 @@ export default {
   padding: 0rem 0.4rem;
   background-color: #fff;
   overflow: hidden;
-
+  text-align: left;
 }
-.index .title h1{color:#3d4959;text-align: left;}
-.index .title p{color: #929699; margin-bottom: 0.4rem;text-align: left;}
-.mint-tab-container-item{ padding: 0.15rem}
+.index .title h1{color:#3d4959}
+.index .title p{color: #929699; margin-bottom: 0.4rem}
+.mint-tab-container{ padding: 0.15rem}
 .mint-navbar{margin-top: 0.1rem}
 </style>
