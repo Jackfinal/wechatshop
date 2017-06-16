@@ -13,7 +13,6 @@ export default StyleSheet.create({
         "marginBottom": 0,
         "marginLeft": "auto",
         "position": "relative",
-        "height": "100%",
         "fontSize": 0.28,
         "backgroundColor": "#f4f4f4"
     },
@@ -58,7 +57,6 @@ export default StyleSheet.create({
         "marginLeft": 0
     },
     "html": {
-        "height": "100%",
         "fontSize": 0.28,
         "backgroundColor": "#f4f4f4"
     },
@@ -74,5 +72,28 @@ export default StyleSheet.create({
         "verticalAlign": -0.15,
         "fill": "currentColor",
         "overflow": "hidden"
+    },
+    "a": {
+        "color": "#929699",
+        "textDecorationLine": "none"
+    },
+    "footer": {
+        "paddingTop": 0.5,
+        "paddingRight": 0,
+        "paddingBottom": 0.5,
+        "paddingLeft": 0
+    },
+    "footer mint-cell": {
+        "backgroundColor": "#f3f4f8",
+        "background": "linear-gradient(#e1e8f0, #f3f4f8)"
+    },
+    "footer b a": {
+        "display": "inline-block",
+        "width": "50%",
+        "textAlign": "center",
+        "marginTop": 0.5
+    },
+    "footer b a span": {
+        "color": "red"
     }
 });
