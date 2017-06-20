@@ -5,41 +5,41 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     accessToken: localStorage.getItem('accessToken') || '',
-    oppenid: localStorage.getItem('accessToken') || '',
+    user: localStorage.getItem('user') || '',
     loading: false,
     showFooter: true,
 
   },
   mutations: {
-    [types.SAVE_ACCESSTOKEN](state, code) {
+    saveAccssToken(state, code) {
       localStorage.setItem('accessToken', code)
       state.accessToken = code
     },
-    [types.SAVE_USER](state, user) {
+    saveUser(state, user) {
       localStorage.setItem('user', JSON.stringify(user))
       state.user = user
     },
-    [types.CHANGE_LOADING](state) {
+    changeLoading(state) {
       state.loading = !state.loading
     },
-    [types.SHOW_FOOTER](state) {
+    showFooter(state) {
       state.showFooter = !state.showFooter
     },
 
   },
   actions: {
     saveAccssToken({ commit }, code) {
-      commit(types.SAVE_ACCESSTOKEN, code)
+      commit(saveAccssToken, code)
     },
     login({ commit }, user) {
-      commit(types.SAVE_USER, user)
+      commit(saveUser, user)
     },
     changeLoading({ commit }) {
-      commit(types.CHANGE_LOADING)
+      commit(changeLoading)
     },
     showFooter({ commit }) {
-      commit(types.SHOW_FOOTER)
-    },
+      commit(showFooter)
+    }
 
   }
 
