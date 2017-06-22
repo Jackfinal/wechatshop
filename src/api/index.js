@@ -3,7 +3,7 @@ import Vue from 'vue';
 import router from '../router'
 import vueResource from 'vue-resource'
 import store from '../store';
-import { Indicator } from 'mint-ui';
+import { Indicator,Toast } from 'mint-ui';
 import queryString from 'queryString';
 
 Vue.use(vueResource);
@@ -19,10 +19,13 @@ async function fetch(service, data, loading = false)
 {
   let accessToken = store.state.accessToken;
   const user = store.state.user
+
   if(!accessToken)
   {
-    accessToken = await getData();
+    accessToken = await getData('AccessToken.GetAccessToken',{appid, secret});
+    store.dispatch('saveAccssToken', accessToken)
   }
+  return getData(service, data, loading)
 
 }
 async function getData(service, datas, loading)
@@ -38,33 +41,45 @@ async function getData(service, datas, loading)
   }
 
   return new Promise((resolve, reject)=>{
-    Vue.http.get(API_ROOT + '/index.php', queryString.stringify(data)).then(response => {
+    Vue.http.options.emulateJSON = true;
+    Vue.http.post(API_ROOT + 'index.php', data).then(response => {
       Indicator.close();
       if (response.status == 200) {
         let data = response.data
         if(data.ret == 200)
         {
           resolve(data.data.result);
-        }else if(data.ret == 401 || data.ret == 400){
+          return;
+        }else if (data.ret == 401 || data.ret == 400){
           Toast({
             message: data.msg,
             position: 'bottom',
             duration: 5000
           });
         }else if (data.ret == 402) {
-          const access_token = store.state.accessToken
-          const user = store.state.user
-          if (access_token && user.userId) {
-            return fetch('AccessToken.UpdateAccessToken', { access_token, userid: user.userId }).then(res => {
-                            // store.dispatch('saveAccssToken', res)
-                            //debugger
-                           return fetch(service, datas)
-})
+          const accessToken = store.state.accessToken
+          const user = store.state.user;
+          if (user && accessToken && user.oppenid) {
+            return fetch('AccessToken.UpdateAccessToken', { appid:appid, secret: secret }).then(res => {
+              return fetch(service, datas)
+            })
+          }else if (user && accessToken && !user.oppenid) {
+            return fetch('AccessToken.GetAccessToken', { appid, secret }).then(res => {
+              store.dispatch('saveAccssToken', res)
+              return fetch(service, datas)
+            })
+
           }
         }
 
 
       }
+      Toast({
+        message: '服务器错误！',
+        position: 'bottom',
+        duration: 5000
+      });
+      reject(data)
 
     },error => {
       Toast({
@@ -78,5 +93,21 @@ async function getData(service, datas, loading)
 //暴露外围函数
 export function RedirectWeixin()
 {
-  getData('Weixin.Redirect_weixin',{},true);
+  let user = store.state.user;
+  if(!user)
+  {
+    var ret = fetch('Weixin.Redirect_weixin',{},true);
+    ret.then(res => {
+      window.location.href=res;
+    })
+  }
+}
+//获取banner
+export function GetIndexTop()
+{
+  return fetch('Index.GetIndexTop',{});
+}
+//获取优惠卷详情
+export function GetInfo(data){
+  return fetch('Index.GetInfo',data);
 }

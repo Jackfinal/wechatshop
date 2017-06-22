@@ -11,14 +11,22 @@ import './assets/fonts/iconfont'
 import store from './store'
 import {RedirectWeixin} from './api'
 
+Vue.use(require('vue-wechat-title'))
+
 Vue.config.productionTip = false
 
 
 Vue.use(MintUI)
 Vue.use(Vuex)
 //执行请求微信登录
-RedirectWeixin(function(){});
+//RedirectWeixin();
 
+//注册标题全局指令
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.title
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -3,8 +3,8 @@
 
     <mt-cell v-bind:title="title"  v-bind:icon="title" v-bind:value="ftitle" is-link to="/"></mt-cell>
     <div class="list-pic-ul">
-      <ul v-if="items">
-        <li v-for="n in 5"><a @click="showCoupon(1)"><img src="../../assets/logo.png" /><p>{{popupVisible}}{{title}}</p></a></li>
+      <ul v-if="items" >
+        <li v-for="item in items"><a @click="showCoupon(item.id)"><img :src="item.thumb" /><p>{{item.title}}</p></a></li>
       </ul>
     </div>
     <mt-popup
@@ -16,22 +16,22 @@
         </svg>
       </a></div>
       <div class="coupon">
-        <mt-cell title="花串串" is-link to="/"></mt-cell>
-        <div class="ban"><img src="http://img.home.ahrmt.com/uploads/news/2017/0605/1496651115594330.jpg"></div>
+        <mt-cell :title="info.title" is-link to="/"></mt-cell>
+        <div class="ban"><img :src="info.thumb"></div>
         <div class="info">
-          <h2>到店即送火锅底料</h2>
-          <div class="price">￥0 <span>￥8</span></div>
-          <p>到店即送火锅底料到店即送火锅底料到店即送火锅底料到店即送火锅底料</p>
+          <h2>{{info.title}}</h2>
+          <div class="price">￥{{info.trueprice}} <span>￥{{info.shopprice}}</span></div>
+          <p>{{info.description}}</p>
           <div class="x">
-            <li><span>有效日期 </span>1月2号至6月23日</li>
-            <li><span>预约信息 </span>1月2号至6月23日</li>
-            <li><span>可否共享 </span>1月2号至6月23日</li>
-            <li><span>可否叠加 </span>1月2号至6月23日</li>
-            <li><span>可用时间 </span>全天</li>
+            <li><span>有效日期 </span>{{info.starttime}}号至{{info.enddate}}</li>
+            <li><span>预约信息 </span>{{info.reservation}}</li>
+            <li><span>可否共享 </span>{{info.share==1?'是':'否'}}</li>
+            <li><span>可否叠加 </span>{{info.overlying==1?'是':'否'}}</li>
+            <li><span>可用时间 </span>{{info.usertime}}</li>
           </div>
           <div class="shop">
-            <h2>花串串<br /><span>地址地址</span></h2>
-            <a class="tel" href="tel:787878">
+            <h2>{{site.SITE_TITLE}}<br /><span>{{site[2].content}}</span></h2>
+            <a class="tel" :href="'tel:'+site[1].content">
               <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-wode"></use>
               </svg>
@@ -43,11 +43,15 @@
   </div>
 </template>
 <script>
+import {GetInfo} from '../../api'
+import store from '../../store';
 export default{
   name: 'listpic',
   data() {
     return {
-      popupVisible: 0
+      popupVisible: 0,
+      info: [],
+      site: store.state.site
     }
   },
   props: {
@@ -60,15 +64,20 @@ export default{
       required: true
     },
     items: {
-      type: Array
+      type: [Object,Array],
+      required: true
     },
     link: {
       type: String,
       required: true
     }
   },
+
   methods: {
-    showCoupon:function(res){
+    showCoupon:function(id){
+      GetInfo({id:id, attr:'coupon'}).then(res=>{
+        this.info = res;
+      });
       this.popupVisible = 1
     }
   }
@@ -83,7 +92,9 @@ export default{
 .list-pic ul li p{text-align: center;}
 .list-pic ul li a{color: #929699}
 .list-pic .v-modal{background-color: #98b5d7;}
-.list-pic .ban img{width: 7.2rem}
+.list-pic .ban{text-align: center;}
+.list-pic .ban img{max-width: 7.2rem;max-height: 4rem}
+.mint-popup{ width: 7.2rem}
 .list-pic .info{ margin: 0.3rem; }
 .list-pic h2{font-size: 0.3rem}
 .list-pic .price{line-height: 0.5rem;color: red;}

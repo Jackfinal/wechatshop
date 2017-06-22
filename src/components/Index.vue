@@ -1,14 +1,12 @@
 <template>
   <div class="index">
     <mt-swipe :auto="0">
-      <mt-swipe-item><img src="../assets/images/topimg.jpg" /></mt-swipe-item>
-      <mt-swipe-item><img src="../assets/images/topimg.jpg" /></mt-swipe-item>
-      <mt-swipe-item><img src="../assets/images/topimg.jpg" /></mt-swipe-item>
+      <mt-swipe-item v-for="(item,index) in listBanner"><img :alt="item.title" :src="item.thumb" /></mt-swipe-item>
     </mt-swipe>
     <div class="title">
-      <h1>花串串</h1>
+      <h1 v-wechat-title="siteInfo.SITE_TITLE">{{siteInfo.SITE_TITLE}}</h1>
       <p>
-火锅<br />花串串，一家专门做火锅的串串店
+{{siteInfo.SITE_KEYWORDS}}<br />{{siteInfo.SITE_DESCRIPTION}}
       </p>
     </div>
     <mt-navbar v-model="selected">
@@ -19,10 +17,11 @@
         优惠
       </mt-tab-item>
       <mt-tab-item id="2">
+        <span class="mt-tab-item-span" v-on:click="showShops">
         <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-shangjia"></use>
         </svg>
-        商家
+        商家</span>
       </mt-tab-item>
       <mt-tab-item id="3">
         <svg class="icon" aria-hidden="true">
@@ -35,14 +34,14 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
-        <mt-cell title="再优惠" value="无可有优惠卷" is-link to="/"></mt-cell>
-        <ListPic title="积分兑换" ftitle="无可兑换" items="[1,2]" link="/"></ListPic>
+        <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/"></mt-cell>
+        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link="/"></ListPic>
         <mt-cell title="剩余积分" value="0"></mt-cell>
         <mt-cell title="累计积分" value="0"></mt-cell>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
-        <Shop title="门店资讯" img="http://img.home.hc7.cn/uploads/news/2017/0609/1496994873190032.png" ftitle="门店资讯门店资讯" link="/info"></Shop>
-        <Shop title="门店信息" img="http://img.home.hc7.cn/uploads/news/2017/0609/1496994873190032.png" ftitle="门店信息门店信息" link="/"></Shop>
+        <Shop :title="news.title" :img="news.thumb" :ftitle="news.description" link="/#/info"></Shop>
+        <Shop title="门店信息" :lnglat="siteInfo[0].content" :ftitle="siteInfo[2].content" link="/"></Shop>
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
         <div class="user">
@@ -66,9 +65,13 @@
   </div>
 </template>
 <script>
+
 import ListPic from './common/listpic.vue'
 import Footer from './common/footer.vue'
 import Shop from './common/shop.vue'
+import {GetIndexTop} from '../api';
+import store from '../store';
+
 export default {
   name: 'index',
   components: {
@@ -78,7 +81,26 @@ export default {
   },
   data () {
     return {
-      selected: '1'
+      selected: '1',
+      listBanner: [],
+      siteInfo:[],
+      coupon:[],
+      youhuijuan:[],
+      news:[]
+    }
+  },
+  created() {
+    GetIndexTop().then(res => {
+      this.listBanner = res.list.banner;
+      this.siteInfo = res.site;
+      store.dispatch('saveSite', this.siteInfo)
+      this.youhuijuan = res.list.youhuijuan
+      this.news = res.list.shopnews[0]
+    })
+  },
+  methods: {
+    showShops: function(){
+      console.log(111);
     }
   }
 }
@@ -97,10 +119,11 @@ export default {
   overflow: hidden;
   text-align: left;
 }
+.mt-tab-item-span{display: block;}
 
 .index .title h1{color:#3d4959}
 .index .title p{color: #929699; margin-bottom: 0.4rem}
-.index .mint-tab-container .mint-tab-container-item{ padding: 0.15rem}
+.index .mint-tab-container .mint-tab-container-item{ padding: 0rem}
 .index .mint-navbar{margin-top: 0.1rem}
 .index .mint-cell{ margin-bottom: 0.1rem}
 .index .mint-tab-item-label{ font-size: 0.35rem}

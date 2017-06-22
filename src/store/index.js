@@ -8,6 +8,7 @@ export default new Vuex.Store({
     user: localStorage.getItem('user') || '',
     loading: false,
     showFooter: true,
+    site:[]
 
   },
   mutations: {
@@ -25,20 +26,27 @@ export default new Vuex.Store({
     showFooter(state) {
       state.showFooter = !state.showFooter
     },
+    saveSite(state, site) {
+      localStorage.setItem('user', JSON.stringify(site))
+      state.site = site
+    }
 
   },
   actions: {
     saveAccssToken({ commit }, code) {
-      commit(saveAccssToken, code)
+      commit('saveAccssToken', code)
+    },
+    saveSite({ commit }, site) {
+      commit('saveSite', site)
     },
     login({ commit }, user) {
-      commit(saveUser, user)
+      commit('saveUser', user)
     },
     changeLoading({ commit }) {
-      commit(changeLoading)
+      commit('changeLoading')
     },
     showFooter({ commit }) {
-      commit(showFooter)
+      commit('showFooter')
     }
 
   }
