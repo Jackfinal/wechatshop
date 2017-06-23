@@ -1,6 +1,5 @@
 <template>
   <div class="list-pic">
-
     <mt-cell v-bind:title="title"  v-bind:icon="title" v-bind:value="ftitle" is-link to="/"></mt-cell>
     <div class="list-pic-ul">
       <ul v-if="items" >
@@ -30,8 +29,8 @@
             <li><span>可用时间 </span>{{info.usertime}}</li>
           </div>
           <div class="shop">
-            <h2>{{site.SITE_TITLE}}<br /><span>{{site[2].content}}</span></h2>
-            <a class="tel" :href="'tel:'+site[1].content">
+            <h2>{{site.SITE_TITLE}}<br /><span>{{site.address}}</span></h2>
+            <a class="tel" :href="'tel:'+site.tel">
               <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-wode"></use>
               </svg>
@@ -51,7 +50,7 @@ export default{
     return {
       popupVisible: 0,
       info: [],
-      site: store.state.site
+      site: typeof (store.state.site) == 'string'?JSON.parse(store.state.site):store.state.site
     }
   },
   props: {
@@ -60,8 +59,7 @@ export default{
       required: true
     },
     ftitle: {
-      type: String,
-      required: true
+      type: String
     },
     items: {
       type: [Object,Array],

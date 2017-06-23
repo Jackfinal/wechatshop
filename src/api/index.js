@@ -107,7 +107,11 @@ export function GetIndexTop()
 {
   return fetch('Index.GetIndexTop',{});
 }
-//获取优惠卷详情
+//获取详情
 export function GetInfo(data){
   return fetch('Index.GetInfo',data);
+}
+//获取列表
+export function GetList(data){
+  return fetch('Index.GetList',data);
 }

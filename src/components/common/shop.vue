@@ -2,10 +2,7 @@
   <div class="shop">
     <mt-cell v-bind:title="title" is-link v-bind:to="link" ></mt-cell>
     <div class="shoplist" >
-      <div class="map" v-if="title=='门店信息'">
-        <Map></Map>
-      </div>
-      <a v-else :href="link">
+      <a :href="'/info/'+id">
         <img :src="img" >
         <span>{{ftitle}}</span>
       </a>
@@ -18,12 +15,10 @@ import Map from './Map.vue'
     name:'shop',
     props: {
       title: {
-        type: String,
-        required: true
+        type: String
       },
       ftitle: {
-        type: String,
-        required: true
+        type: String
       },
       img: {
         type: String
@@ -32,9 +27,11 @@ import Map from './Map.vue'
         type: String
       },
       link: {
-        type: String,
-        required: true
+        type: String
       },
+      id: {
+        type: String
+      }
     },
     data () {
       //let gt = this.lnglat.split(',');
@@ -51,11 +48,6 @@ import Map from './Map.vue'
 
       }
     },
-    methods: {
-      handler ({BMap, map}) {
-
-      }
-    },
     components: {
       Map
     }
@@ -68,5 +60,5 @@ import Map from './Map.vue'
 .shoplist span{display: block;text-align: left; line-height: 0.5rem;text-indent: 0.2rem;    height: 0.5rem;
     overflow: hidden;
     padding: 0 0.2rem;}
-.shoplist img,.mapmap{width: 6.5rem; height: 3.7rem;}
+.shoplist img{width: 6.5rem; height: 3.7rem;}
 </style>

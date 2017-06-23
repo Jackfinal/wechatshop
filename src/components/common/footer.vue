@@ -10,11 +10,12 @@
   </footer>
 </template>
 <script>
+  import store from '../../store'
   export default{
     name:'footer',
     data() {
       return {
-        footerShow:1
+        footerShow:store.state.showFooter
       }
     }
   }

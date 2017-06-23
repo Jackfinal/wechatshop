@@ -8,7 +8,7 @@ export default new Vuex.Store({
     user: localStorage.getItem('user') || '',
     loading: false,
     showFooter: true,
-    site:[]
+    site:localStorage.getItem('site') || []
 
   },
   mutations: {
@@ -27,7 +27,7 @@ export default new Vuex.Store({
       state.showFooter = !state.showFooter
     },
     saveSite(state, site) {
-      localStorage.setItem('user', JSON.stringify(site))
+      localStorage.setItem('site', JSON.stringify(site))
       state.site = site
     }
 

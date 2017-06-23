@@ -9,30 +9,31 @@
 {{siteInfo.SITE_KEYWORDS}}<br />{{siteInfo.SITE_DESCRIPTION}}
       </p>
     </div>
-    <mt-navbar v-model="selected">
+    <mt-navbar v-model="selected" value="1">
+      <div class="table-tar">
       <mt-tab-item id="1">
         <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-bullhorn"></use>
         </svg>
         优惠
-      </mt-tab-item>
-      <mt-tab-item id="2">
-        <span class="mt-tab-item-span" v-on:click="showShops">
+      </mt-tab-item></div>
+      <div class="table-tar" @click="showShops">
+      <mt-tab-item id="2" >
         <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-shangjia"></use>
         </svg>
-        商家</span>
-      </mt-tab-item>
+        商家
+      </mt-tab-item></div>
+      <div class="table-tar">
       <mt-tab-item id="3">
         <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-wode"></use>
         </svg>
       我的
-      </mt-tab-item>
+    </mt-tab-item></div>
     </mt-navbar>
-
     <!-- tab-container -->
-    <mt-tab-container v-model="selected">
+    <mt-tab-container v-model="selected" value="1">
       <mt-tab-container-item id="1">
         <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/"></mt-cell>
         <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link="/"></ListPic>
@@ -40,8 +41,14 @@
         <mt-cell title="累计积分" value="0"></mt-cell>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
-        <Shop :title="news.title" :img="news.thumb" :ftitle="news.description" link="/#/info"></Shop>
-        <Shop title="门店信息" :lnglat="siteInfo[0].content" :ftitle="siteInfo[2].content" link="/"></Shop>
+        <Shop title="门店资讯" :img="news.thumb" :id="news.id" :ftitle="news.description" link="/list"></Shop>
+        <div class="shop">
+          <mt-cell title="门店信息" is-link to="/Address" ></mt-cell>
+          <div class="mapindex"><component v-bind:is="which_to_show" keep-alive></component></div>
+          <span class="mapaddress">{{siteInfo.address}}</span>
+
+        </div>
+
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
         <div class="user">
@@ -65,7 +72,7 @@
   </div>
 </template>
 <script>
-
+import Map from './common/Map.vue'
 import ListPic from './common/listpic.vue'
 import Footer from './common/footer.vue'
 import Shop from './common/shop.vue'
@@ -77,7 +84,8 @@ export default {
   components: {
     ListPic,
     Footer,
-    Shop
+    Shop,
+    Map
   },
   data () {
     return {
@@ -86,7 +94,8 @@ export default {
       siteInfo:[],
       coupon:[],
       youhuijuan:[],
-      news:[]
+      news:[],
+      which_to_show:''
     }
   },
   created() {
@@ -100,7 +109,7 @@ export default {
   },
   methods: {
     showShops: function(){
-      console.log(111);
+      this.which_to_show = 'Map'
     }
   }
 }
@@ -120,7 +129,7 @@ export default {
   text-align: left;
 }
 .mt-tab-item-span{display: block;}
-
+.table-tar{width: 33%}
 .index .title h1{color:#3d4959}
 .index .title p{color: #929699; margin-bottom: 0.4rem}
 .index .mint-tab-container .mint-tab-container-item{ padding: 0rem}
@@ -134,4 +143,7 @@ export default {
 .index .user .mint-cell,index .user .mint-cell-wrapper{ border:0px; background: none;}
 .index .footer{ background-color: #fff; margin: 0.1rem 0; height: 0.6rem}
 .index .footer .b a{ margin: 0}
+.mapaddress{ text-indent: 5%;display: block;}
+
+.mapindex{width: 90%; height: 3.7rem; margin: 0 auto;}
 </style>
