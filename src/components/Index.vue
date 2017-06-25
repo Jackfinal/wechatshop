@@ -52,16 +52,16 @@
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
         <div class="user">
-          <div class="face"><img src="../assets/logo.png"></div>
-          <mt-cell title="标题文字" label="13966790692" is-link to="/">
+          <div class="face"><img :src="user.avatar" :alt="user.avatar"></div>
+          <mt-cell :title="user.nickname?user.nickname:user.username" :label="user.mobile" is-link to="/user">
           </mt-cell>
 
         </div>
         <div class="footer">
-          <div class="b"><a href=""><span>1</span><br />再惠卷</a><a href=""><span>2</span><br />积分</a></div>
+          <div class="b"><a href="/" ><span v-text="user.count_yhj"></span><br />再惠卷</a><a href=""><span v-text="user.credits"></span><br />积分</a></div>
         </div>
-        <mt-cell title="入会日期" value="20170-06-06"></mt-cell>
-        <mt-cell title="积分历史" to="" is-link value="0"></mt-cell>
+        <mt-cell title="入会日期" :value="user.regdate"></mt-cell>
+        <mt-cell title="积分历史" to="" is-link :value="user.credits"></mt-cell>
         <mt-cell title="销卷历史" to="" is-link value="0"></mt-cell>
 
 
@@ -76,7 +76,7 @@ import Map from './common/Map.vue'
 import ListPic from './common/listpic.vue'
 import Footer from './common/footer.vue'
 import Shop from './common/shop.vue'
-import {GetIndexTop} from '../api';
+import {GetIndexTop,GetUser} from '../api';
 import store from '../store';
 
 export default {
@@ -95,7 +95,8 @@ export default {
       coupon:[],
       youhuijuan:[],
       news:[],
-      which_to_show:''
+      which_to_show:'',
+      user:store.state.user
     }
   },
   created() {
@@ -103,8 +104,13 @@ export default {
       this.listBanner = res.list.banner;
       this.siteInfo = res.site;
       store.dispatch('saveSite', this.siteInfo)
-      this.youhuijuan = res.list.youhuijuan
+      //this.youhuijuan = res.list.youhuijuan
       this.news = res.list.shopnews[0]
+    })
+    GetUser({userid:1}).then(res=>{
+      store.dispatch('saveUser', res)
+      this.user = res;
+      this.youhuijuan = res.yhj
     })
   },
   methods: {

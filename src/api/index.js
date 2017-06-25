@@ -115,3 +115,7 @@ export function GetInfo(data){
 export function GetList(data){
   return fetch('Index.GetList',data);
 }
+//获取用户信息
+export function GetUser(data){
+  return fetch('User.getBaseInfo',data);
+}

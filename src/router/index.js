@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Info from '@/components/Info'
 import Address from '@/components/Address'
 import List from '@/components/List'
+import User from '@/components/User'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +28,11 @@ export default new Router({
       path: '/Address',
       name: 'Address',
       component: Address
+    },
+    {
+      path: '/User',
+      name: 'User',
+      component: User
     }
   ]
 })

@@ -36,6 +36,9 @@ export default new Vuex.Store({
     saveAccssToken({ commit }, code) {
       commit('saveAccssToken', code)
     },
+    saveUser({ commit }, user) {
+      commit('saveUser', user)
+    },
     saveSite({ commit }, site) {
       commit('saveSite', site)
     },
