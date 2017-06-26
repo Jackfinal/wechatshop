@@ -21,8 +21,8 @@
     <div @click="showText('请输入昵称！', 'nickname')" ><mt-cell title="昵称" :value="user.nickname" is-link></mt-cell></div>
     <div @click="showText('请输入昵称！', 'mobile')" ><mt-cell title="手机号" :value="user.mobile" is-link></mt-cell></div>
     <div @click="showText('请输入昵称！', 'birthday')" ><mt-cell title="生日" :value="user.birthday" is-link></mt-cell></div>
-    <mt-cell title="会员日" :value="user.regdate"></mt-cell>
-    <mt-cell title="城市" value="说明文字"></mt-cell>
+    <mt-cell title="会员日" :value="user.regdate" ></mt-cell>
+    <div @click="checkArea()" ><mt-cell title="城市" value="说明文字" is-link></mt-cell></div>
     <mt-cell title="商圈" value="说明文字"></mt-cell>
     <mt-cell title="职业" value="说明文字"></mt-cell>
 
@@ -32,11 +32,16 @@
     </mt-actionsheet>
     <input type="file" name="face" v-show="0" accept="image/*">
 
-    <mt-datetime-picker
-      v-model="pickerVisible"
-      type="date"
-      year-format="{value} 年">
-    </mt-datetime-picker>
+
+  <mt-datetime-picker
+    ref="picker"
+    type="date"
+    year-format="{value}年"
+  month-format="{value}月"
+  date-format="{value}日" :endDate="endDate" :startDate="startDate"
+    v-model="pickerValue" @confirm="handleConfirm">
+  </mt-datetime-picker>
+
 
 
   </div>
@@ -48,11 +53,13 @@ import { Indicator ,MessageBox ,DatetimePicker  } from 'mint-ui';
 export default {
   name: 'User',
   data() {
+    var d = new Date(2017)
     return {
       user: typeof (store.state.user) == 'string'?JSON.parse(store.state.user):store.state.user,
       sheetVisible: 0,
-      pickerVisible: 0,
-      value: {},
+      pickerValue: d,
+      endDate: new Date((new Date).getFullYear()+0,0,0),
+      startDate: new Date((new Date).getFullYear()-50,0,0),
       actions: [{name:"拍照",method:this.takePhoto},{name:"从相册中选择",method:this.openAlbum}]
     }
   },
@@ -67,14 +74,15 @@ export default {
       console.log(111);
     },
     showText(text, type) {
-
-      console.log(this.value);
+      var _this = this;
+      //console.log(this.openPicker());
       if(type == 'birthday')
       {
-        this.pickerVisible = 1;
-        var data = new Date();
-        this.value = data.getFullYear;
-        console.log(typeof this.value.getFullYear);
+        var l = this.user.birthday.split(',');
+        var d = new Date()
+        d.setFullYear(l[0],l[1]-1,l[2]);
+        this.pickerValue = d;
+        this.openPicker();
         return '';
       }else {
         MessageBox.prompt(text).then(({ value, action }) => {
@@ -104,6 +112,19 @@ export default {
             })
         }
         reader.readAsDataURL(file)
+    },
+    openPicker() {
+        this.$refs.picker.open();
+    },
+    handleConfirm(e) {
+      var d = new Date(e)
+      var value = d.getFullYear()+','+(d.getMonth()+1)+','+d.getDay()
+      console.log(value);
+    },
+    checkArea() {
+      this.$http.get('../api/area.json').then(res => {
+        console.log(res);
+      });
     }
   }
 
