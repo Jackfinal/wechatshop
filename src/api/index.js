@@ -119,3 +119,7 @@ export function GetList(data){
 export function GetUser(data){
   return fetch('User.getBaseInfo',data);
 }
+//图片上传
+export function uploader(data) {
+   return fetch('Default.UploadBase64', data)
+}

@@ -146,7 +146,7 @@ export default {
 .index .user{background-color: #fff;  padding: 0.5rem 0.5rem;}
 .index .user .face img{ width: 1.2rem; height: 1.2rem; float: left;}
 .index .mint-tab-container-item:last-child{padding:0.15rem 0 0 0!important;}
-.index .user .mint-cell,index .user .mint-cell-wrapper{ border:0px; background: none;}
+.index .user .mint-cell,index .user .mint-cell-wrapper{ border:0px!important; background: none;}
 .index .footer{ background-color: #fff; margin: 0.1rem 0; height: 0.6rem}
 .index .footer .b a{ margin: 0}
 .mapaddress{ text-indent: 5%;display: block;}
