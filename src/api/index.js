@@ -90,7 +90,7 @@ async function getData(service, datas, loading)
 export function RedirectWeixin()
 {
   let user = store.state.user;
-  if(!user)
+  if(!user.id)
   {
     var ret = fetch('Weixin.Redirect_weixin',{},true);
     ret.then(res => {
@@ -131,4 +131,8 @@ export function getArea(){
 export function getCoupon(data)
 {
   return fetch('User.getCoupon', data)
+}
+export function weiXinRedirect(data)
+{
+  return fetch('weixin.weiXinRedirect', data, true)
 }

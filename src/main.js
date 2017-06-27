@@ -9,7 +9,6 @@ import 'mint-ui/lib/style.css'
 import './assets/styles/common.css'
 import './assets/fonts/iconfont'
 import store from './store'
-import {RedirectWeixin} from './api'
 
 Vue.use(require('vue-wechat-title'))
 
@@ -18,19 +17,37 @@ Vue.config.productionTip = false
 
 Vue.use(MintUI)
 Vue.use(Vuex)
-//执行请求微信登录
-//RedirectWeixin();
 
+
+//store.dispatch('saveUser', NULL)
 //注册标题全局指令
 Vue.directive('title', {
   inserted: function (el, binding) {
     document.title = el.title
   }
 })
+
+//执行请求微信登录
+router.beforeEach((to, from, next) => {
+  //if (to.matched.some(record => record.meta.requiresAuth)) {
+  if(to.name != 'login'){
+    if (store.state.user.id) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.name }
+      })
+    }
+  } else {
+    next()
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

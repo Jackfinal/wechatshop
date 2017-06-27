@@ -96,7 +96,7 @@ export default {
       youhuijuan:[],
       news:[],
       which_to_show:'',
-      user:store.state.user
+      user: typeof (store.state.user) == 'string'?JSON.parse(store.state.user):store.state.user,
     }
   },
   created() {
@@ -107,7 +107,7 @@ export default {
       //this.youhuijuan = res.list.youhuijuan
       this.news = res.list.shopnews[0]
     })
-    GetUser({userid:1}).then(res=>{
+    GetUser({userid:this.user.id}).then(res=>{
       store.dispatch('saveUser', res)
       this.user = res;
       this.youhuijuan = res.yhj

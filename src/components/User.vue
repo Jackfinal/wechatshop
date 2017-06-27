@@ -18,12 +18,12 @@
      <i class="mint-cell-allow-right"></i>
     </a>
 
-    <div @click="showText('请输入昵称！', 'nickname')" ><mt-cell title="昵称" :value="user.nickname" is-link></mt-cell></div>
-    <div @click="showText('请输入手机号！', 'mobile')" ><mt-cell title="手机号" :value="user.mobile" is-link></mt-cell></div>
-    <div @click="showText('请选择生日！', 'birthday')" ><mt-cell title="生日" :value="user.birthday|filterBirthday" is-link></mt-cell></div>
-    <mt-cell title="会员日" :value="user.regdate" ></mt-cell>
-    <div @click="checkArea('city')" ><mt-cell title="城市" :value="user.city" is-link></mt-cell></div>
-    <div @click="checkArea('quan')" ><mt-cell title="商圈" :value="user.quan" is-link></mt-cell></div>
+    <div class="divli" @click="showText('请输入昵称！', 'nickname')" ><mt-cell title="昵称" :value="user.nickname" is-link></mt-cell></div>
+    <div class="divli" @click="showText('请输入手机号！', 'mobile')" ><mt-cell title="手机号" :value="user.mobile" is-link></mt-cell></div>
+    <div class="divli" @click="showText('请选择生日！', 'birthday')" ><mt-cell title="生日" :value="user.birthday|filterBirthday" is-link></mt-cell></div>
+    <div class="divli"><mt-cell title="会员日" :value="user.regdate" ></mt-cell></div>
+    <div class="divli" @click="checkArea('city')" ><mt-cell title="城市" :value="user.city" is-link></mt-cell></div>
+    <div class="divli" @click="checkArea('quan')" ><mt-cell title="商圈" :value="user.quan" is-link></mt-cell></div>
 
     <input type="file" name="face" v-show="0" accept="image/*">
     <mt-picker :slots="slots" @change="onValuesChange" :visibleItemCount='5' :showToolbar="true" v-show="slotsShow">
@@ -260,8 +260,8 @@ export default {
 </script>
 
 <style>
-.title-h3{ text-align: center; font-size: 0.3rem; font-weight: normal;background: #fff; line-height: 0.8rem;box-shadow: 0 2px 8px #ccc;}
-.mint-cell{ border-top: 1px solid #f4f4f4}
+.title-h3{ text-align: center; font-size: 0.3rem; font-weight: normal;background: #fff; line-height: 0.8rem;box-shadow: 0 2px 8px #ccc; margin-bottom: 0.04rem}
+.divli{ border-top: 0px solid #f4f4f4;margin-top: 1px;}
 
 .avatar-div {
     width: 1.2rem;
@@ -282,4 +282,5 @@ export default {
     border-radius: 50%;
 }
 .mint-cell-wrapper{ border:0px!important; background: none;}
+
 </style>

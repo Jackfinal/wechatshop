@@ -6,6 +6,8 @@ import Address from '@/components/Address'
 import List from '@/components/List'
 import User from '@/components/User'
 import coupon from '@/components/coupon'
+import weixin from '@/components/weixin'
+import login from '@/components/login'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +41,17 @@ export default new Router({
       path: '/coupon',
       name: 'coupon',
       component: coupon
+    },
+    ,
+    {
+      path: '/weixin',
+      name: 'weixin',
+      component: weixin
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })
