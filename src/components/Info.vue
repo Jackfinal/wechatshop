@@ -30,7 +30,7 @@ export default {
   },
   created() {
     this.init();
-    this.site = store.state.site
+    this.site = typeof (store.state.site) == 'string'?JSON.parse(store.state.site):store.state.site
   },
   methods:{
     init:function(){

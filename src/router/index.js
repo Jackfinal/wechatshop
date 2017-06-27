@@ -5,6 +5,7 @@ import Info from '@/components/Info'
 import Address from '@/components/Address'
 import List from '@/components/List'
 import User from '@/components/User'
+import coupon from '@/components/coupon'
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +34,11 @@ export default new Router({
       path: '/User',
       name: 'User',
       component: User
+    },
+    {
+      path: '/coupon',
+      name: 'coupon',
+      component: coupon
     }
   ]
 })

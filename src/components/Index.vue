@@ -35,8 +35,8 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected" value="1">
       <mt-tab-container-item id="1">
-        <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/"></mt-cell>
-        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link="/"></ListPic>
+        <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/coupon"></mt-cell>
+        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link=""></ListPic>
         <mt-cell title="剩余积分" value="0"></mt-cell>
         <mt-cell title="累计积分" value="0"></mt-cell>
       </mt-tab-container-item>
@@ -123,7 +123,7 @@ export default {
 
 <style>
 .mint-swipe,.mint-swipe-item,.mint-swipe-item img{
-  height: 3.2rem;
+  height: 3.2rem!important;
 }
 .mint-swipe-indicator{background: #e7decf}
 .mint-swipe-item img{width: 100%}
@@ -146,10 +146,10 @@ export default {
 .index .user{background-color: #fff;  padding: 0.5rem 0.5rem;}
 .index .user .face img{ width: 1.2rem; height: 1.2rem; float: left;}
 .index .mint-tab-container-item:last-child{padding:0.15rem 0 0 0!important;}
-.index .user .mint-cell,index .user .mint-cell-wrapper{ border:0px!important; background: none;}
+.index .user .mint-cell,.index .user .mint-cell-wrapper{ border:0px!important; background: none;}
 .index .footer{ background-color: #fff; margin: 0.1rem 0; height: 0.6rem}
 .index .footer .b a{ margin: 0}
 .mapaddress{ text-indent: 5%;display: block;}
-
+.mint-cell-wrapper{ border:0px!important; background: none;}
 .mapindex{width: 90%; height: 3.7rem; margin: 0 auto;}
 </style>

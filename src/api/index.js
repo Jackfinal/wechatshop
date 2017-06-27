@@ -74,16 +74,12 @@ async function getData(service, datas, loading)
 
 
       }
-      Toast({
-        message: '服务器错误！',
-        position: 'bottom',
-        duration: 5000
-      });
+
       reject(data)
 
     },error => {
       Toast({
-        message: '网络错误！',
+        message: '网络错误！'+JSON.stringify(error),
         position: 'bottom',
         duration: 5000
       });
@@ -122,4 +118,17 @@ export function GetUser(data){
 //图片上传
 export function uploader(data) {
    return fetch('Default.UploadBase64', data)
+}
+//更新会员字段
+export function saveField(data) {
+  return fetch('User.saveField', data)
+}
+
+export function getArea(){
+  return fetch('Default.getArea')
+}
+
+export function getCoupon(data)
+{
+  return fetch('User.getCoupon', data)
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="list-pic">
-    <mt-cell v-bind:title="title"  v-bind:icon="title" v-bind:value="ftitle" is-link to="/"></mt-cell>
+    <mt-cell v-bind:title="title"  v-bind:icon="title" v-bind:value="ftitle" is-link to="/coupon"></mt-cell>
     <div class="list-pic-ul">
       <ul v-if="items" >
         <li v-for="item in items"><a @click="showCoupon(item.id)"><img :src="item.thumb" /><p>{{item.title}}</p></a></li>
@@ -11,7 +11,7 @@
       popup-transition="popup-fade">
       <div class="close"><a href="javascript:;" @click="popupVisible=0">
         <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-wode"></use>
+            <use xlink:href="#icon-close"></use>
         </svg>
       </a></div>
       <div class="coupon">
@@ -32,7 +32,7 @@
             <h2>{{site.SITE_TITLE}}<br /><span>{{site.address}}</span></h2>
             <a class="tel" :href="'tel:'+site.tel">
               <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-wode"></use>
+                  <use xlink:href="#icon-tel"></use>
               </svg>
             </a>
           </div>

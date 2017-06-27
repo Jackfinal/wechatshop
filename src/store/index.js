@@ -8,7 +8,7 @@ export default new Vuex.Store({
     user: localStorage.getItem('user') || '',
     loading: false,
     showFooter: true,
-    site:localStorage.getItem('site') || []
+    site:localStorage.getItem('site') || [],
 
   },
   mutations: {
