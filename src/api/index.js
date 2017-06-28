@@ -70,6 +70,13 @@ async function getData(service, datas, loading)
             })
 
           }
+        }else {
+          Toast({
+            message: data.msg,
+            position: 'bottom',
+            duration: 5000
+          });
+          //window.location.href= '/';
         }
 
 
@@ -134,5 +141,5 @@ export function getCoupon(data)
 }
 export function weiXinRedirect(data)
 {
-  return fetch('weixin.weiXinRedirect', data, true)
+  return fetch('weixin.redirect', data, true)
 }

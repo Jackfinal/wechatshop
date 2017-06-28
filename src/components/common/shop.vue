@@ -55,7 +55,7 @@ import Map from './Map.vue'
 </script>
 <style>
 .mapmap{ margin: 0 auto;}
-.shop{ background-color: #fff;margin: 0.1rem 0;}
+.shop{ background-color: #fff;margin: 0 0 0.1rem;}
 .shoplist { text-align: center; padding-bottom: 0.2rem}
 .shoplist span{display: block;text-align: left; line-height: 0.5rem;text-indent: 0.2rem;    height: 0.5rem;
     overflow: hidden;

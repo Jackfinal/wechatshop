@@ -21,7 +21,7 @@ body, html {
        fill: currentColor;
        overflow: hidden;
     }
-a{color: #929699; text-decoration-line: none;}
+a{color: #929699; text-decoration: none;}
 
 .footer{padding: 0.5rem 0}
 .footer .mint-cell{ background-color: #f3f4f8;background: linear-gradient(#e1e8f0, #f3f4f8);}

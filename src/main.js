@@ -18,7 +18,6 @@ Vue.config.productionTip = false
 Vue.use(MintUI)
 Vue.use(Vuex)
 
-
 //store.dispatch('saveUser', NULL)
 //注册标题全局指令
 Vue.directive('title', {
@@ -28,19 +27,19 @@ Vue.directive('title', {
 })
 
 //执行请求微信登录
-router.beforeEach((to, from, next) => {
-  //if (to.matched.some(record => record.meta.requiresAuth)) {
-  if(to.name != 'login'){
-    if (store.state.user.id) {
+router.beforeEach((to, from, next) => {console.log(store.state.user);
+  if(to.name != 'login' && to.name != 'weixin')
+  {
+    if (store.state.user && JSON.parse(store.state.user).id) {
       next()
     } else {
       next({
-        path: '/login',
-        query: { redirect: to.name }
+        path:'/login',
+        query:''
       })
     }
-  } else {
-    next()
+  }else{
+    next();
   }
 })
 /* eslint-disable no-new */

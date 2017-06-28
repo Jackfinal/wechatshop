@@ -32,6 +32,7 @@
       我的
     </mt-tab-item></div>
     </mt-navbar>
+    <div class="hrr"></div>
     <!-- tab-container -->
     <mt-tab-container v-model="selected" value="1">
       <mt-tab-container-item id="1">
@@ -127,7 +128,7 @@ export default {
 }
 .mint-swipe-indicator{background: #e7decf}
 .mint-swipe-item img{width: 100%}
-
+.hrr{height: 0.1rem; width: 100%;}
 .index .title{
   padding: 0rem 0.4rem;
   background-color: #fff;
@@ -145,7 +146,7 @@ export default {
 .index .mint-navbar .mint-tab-item.is-selected{ color: #d36a3a;border-color: #d36a3a;}
 .index .user{background-color: #fff;  padding: 0.5rem 0.5rem;}
 .index .user .face img{ width: 1.2rem; height: 1.2rem; float: left;}
-.index .mint-tab-container-item:last-child{padding:0.15rem 0 0 0!important;}
+.index .mint-tab-container-item:last-child{padding:0.0rem 0 0 0!important;}
 .index .user .mint-cell,.index .user .mint-cell-wrapper{ border:0px!important; background: none;}
 .index .footer{ background-color: #fff; margin: 0.1rem 0; height: 0.6rem}
 .index .footer .b a{ margin: 0}
