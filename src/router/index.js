@@ -8,10 +8,11 @@ import User from '@/components/User'
 import coupon from '@/components/coupon'
 import weixin from '@/components/weixin'
 import login from '@/components/login'
+import pay from '@/components/pay'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  //mode: 'history',
   routes: [
     {
       path: '/',
@@ -53,6 +54,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/pay',
+      name: 'pay',
+      component: pay
     }
   ]
 })

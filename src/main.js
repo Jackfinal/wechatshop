@@ -27,12 +27,14 @@ Vue.directive('title', {
 })
 
 //执行请求微信登录
-router.beforeEach((to, from, next) => {console.log(store.state.user);
+/*
+router.beforeEach((to, from, next) => {
   if(to.name != 'login' && to.name != 'weixin')
   {
-    if (store.state.user && JSON.parse(store.state.user).id) {
-      next()
-    } else {
+    let user = store.state.user;
+    if (user && user.id) {
+      next();
+    } else {next()
       next({
         path:'/login',
         query:''
@@ -41,7 +43,7 @@ router.beforeEach((to, from, next) => {console.log(store.state.user);
   }else{
     next();
   }
-})
+})*/
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -37,7 +37,7 @@
     <mt-tab-container v-model="selected" value="1">
       <mt-tab-container-item id="1">
         <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/coupon"></mt-cell>
-        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link=""></ListPic>
+        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link="/coupon"></ListPic>
         <mt-cell title="剩余积分" value="0"></mt-cell>
         <mt-cell title="累计积分" value="0"></mt-cell>
       </mt-tab-container-item>
@@ -97,7 +97,7 @@ export default {
       youhuijuan:[],
       news:[],
       which_to_show:'',
-      user: typeof (store.state.user) == 'string'?JSON.parse(store.state.user):store.state.user,
+      user: (typeof (store.state.user) == 'string' && store.state.user!='' )?JSON.parse(store.state.user):store.state.user,
     }
   },
   created() {
@@ -106,8 +106,9 @@ export default {
       this.siteInfo = res.site;
       store.dispatch('saveSite', this.siteInfo)
       //this.youhuijuan = res.list.youhuijuan
-      this.news = res.list.shopnews[0]
+      this.news = res.list.shopnews[0];
     })
+    this.user.id = 7;
     GetUser({userid:this.user.id}).then(res=>{
       store.dispatch('saveUser', res)
       this.user = res;

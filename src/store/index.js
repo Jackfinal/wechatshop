@@ -5,7 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     accessToken: localStorage.getItem('accessToken') || '',
-    user: localStorage.getItem('user') || '',
+    user: JSON.parse(localStorage.getItem('user')) || '',
     loading: false,
     showFooter: true,
     site:localStorage.getItem('site') || [],

@@ -6,7 +6,7 @@
       </svg>
     </div>
     <div class="weixin"><img src="../../assets/images/weixin.png" align="center" /></div>
-    <mt-button type="primary">立即买单</mt-button>
+    <router-link to="/pay"><mt-button type="primary">立即买单</mt-button></router-link>
   </footer>
 </template>
 <script>

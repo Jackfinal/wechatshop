@@ -17,7 +17,7 @@ export default {
   methods: {
     init: function(){
       Indicator.open('Loading...');
-      let code = this.$route.query.code;
+      let code = this.getQueryString('code');
       if(!code)
       {
         Indicator.close();
@@ -26,11 +26,12 @@ export default {
           position: 'bottom',
           duration: 5000
         });
+        Indicator.close();
         return ;
       }
       weiXinRedirect({code:code}).then(res=> {
         store.dispatch('saveUser', res);
-        //this.jump();
+        this.jump();
         Indicator.close();
       })
 
@@ -41,6 +42,12 @@ export default {
     },
     jump: function(){
       window.location.href= '/';
+    },
+    getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
     }
   }
 

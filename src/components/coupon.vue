@@ -54,7 +54,7 @@
 <script>
 import store from '../store';
 import {getCoupon} from '../api'
-
+import {Toast} from 'mint-ui'
 export default {
   name: 'coupon',
   data() {
