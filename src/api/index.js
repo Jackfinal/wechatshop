@@ -59,16 +59,15 @@ async function getData(service, datas, loading)
         }else if (data.ret == 402) {
           const accessToken = store.state.accessToken
           const user = store.state.user;
-          if (user && accessToken && user.oppenid) {
+          if (!user && accessToken) {
             return fetch('AccessToken.UpdateAccessToken', { appid:appid, secret: secret }).then(res => {
               return fetch(service, datas)
             })
-          }else if (user && accessToken && !user.oppenid) {
+          }else if (!accessToken) {
             return fetch('AccessToken.GetAccessToken', { appid, secret }).then(res => {
               store.dispatch('saveAccssToken', res)
               return fetch(service, datas)
             })
-
           }
         }else {
           Toast({
