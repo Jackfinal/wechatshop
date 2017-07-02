@@ -59,16 +59,16 @@ async function getData(service, datas, loading)
         }else if (data.ret == 402) {
           const accessToken = store.state.accessToken
           const user = store.state.user;
-          if (!user && accessToken) {
-            return fetch('AccessToken.UpdateAccessToken', { appid:appid, secret: secret }).then(res => {
+          /*if (user && accessToken) {
+            return fetch('AccessToken.UpdateAccessToken', { appid, secret }).then(res => {
               return fetch(service, datas)
             })
-          }else if (!accessToken) {
+          }else if (!accessToken) {*/
             return fetch('AccessToken.GetAccessToken', { appid, secret }).then(res => {
-              store.dispatch('saveAccssToken', res)
+              store.dispatch('saveAccssToken', response.data.data.result)
               return fetch(service, datas)
             })
-          }
+          //}
         }else {
           Toast({
             message: data.msg,
@@ -141,4 +141,10 @@ export function getCoupon(data)
 export function weiXinRedirect(data)
 {
   return fetch('weixin.redirect', data, true)
+}
+
+//支付
+export function weiXinPay(data)
+{
+  return fetch('weixin.weiXinPay', data, true)
 }

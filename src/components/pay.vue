@@ -4,7 +4,7 @@
     <div class="paynumber">
       <mt-field label="消费金额" placeholder="请输入消费金额" :attr="{max: 10000, min: 1 }" type="number" v-model="total"></mt-field>
       <mt-field label="不参与优惠金额" placeholder="如果有，请输入" type="number" v-model="ntotal"></mt-field>
-      <mt-field label="积分抵扣(可用积分100)" placeholder="如果有，请输入" type="number" v-model="jtotal"></mt-field>
+      <mt-field label="积分抵扣(可用积分100)" :placeholder="'可使用积分：'+user.credits" type="number" :attr="{max: user.credits, min: 0 }" v-model="jtotal"></mt-field>
       <mt-checklist
         align="right"
         title="优惠券"
@@ -14,13 +14,15 @@
       <p>如果有疑问请查看<span>《支付说明》</span></p>
 
 
-      <div class="button-div"><mt-button type="danger" size="large">微信支付</mt-button></div>
+      <div class="button-div" @click="submit"><mt-button type="danger" size="large">微信支付</mt-button></div>
     </div>
   </div>
 
 </template>
 <script>
 import store from '../store'
+import { Indicator,Toast } from 'mint-ui';
+import {weiXinPay} from '../api';
 export default {
   name: 'pay',
   data() {
@@ -28,11 +30,49 @@ export default {
       site: store.state.site,
       user: store.state.user,
       options: [],
-      value: [0],
+      value: [],
       number: '',
       total: '',
       ntotal: '',
       jtotal: ''
+    }
+  },
+  computed: {
+    getFrom: function(){
+      if(!this.total || this.total <= 0)
+      {
+        Toast('请输入金额');
+        return false;
+      }
+      if(this.jtotal > this.user.credits)
+      {
+        Toast('你的可用积分为：' + this.user.credits);
+        return false;
+      }
+      if(this.value.length > 1)
+      {
+        Toast('优惠券不可重叠！');
+        return false;
+      }
+      if(this.ntotal > this.total)
+      {
+        Toast('不参与优惠的金额不能大于总金额！');
+        return false;
+      }
+      if(!this.user)
+      {
+        Toast('请登陆后，重试');
+        return false;
+      }
+      let data = {
+        total: this.total,
+        ntotal: this.ntotal,
+        jtotal: this.jtotal,
+        value: this.value,
+        userid: this.user.id,
+        openid: this.user.openid
+      }
+      return data;
     }
   },
   created() {
@@ -43,7 +83,17 @@ export default {
         value: this.user.yhj[i]['id']
       }
     }
-    this.options = options
+    this.options = options;
+  },
+  methods: {
+    submit: function(){
+      let data = this.getFrom;
+console.log(data);
+      if(!data)return false
+      weiXinPay(data).then(res=> {
+        console.log(res);
+      })
+    }
   }
 }
 </script>
