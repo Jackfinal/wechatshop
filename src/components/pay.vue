@@ -9,7 +9,7 @@
         align="right"
         title="优惠券"
         v-model="value"
-        :options="options" >
+        :options="options" :max='1' >
       </mt-checklist>
       <p>如果有疑问请查看<span>《支付说明》</span></p>
 
