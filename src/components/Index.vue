@@ -108,10 +108,12 @@ export default {
       //this.youhuijuan = res.list.youhuijuan
       this.news = res.list.shopnews[0];
     })
-    GetUser({userid:7}).then(res=>{
+
+    GetUser({userid:this.user.id}).then(res=>{
       store.dispatch('saveUser', res)
       this.user = res;
       this.youhuijuan = res.yhj
+
     })
   },
   methods: {

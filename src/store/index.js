@@ -6,6 +6,7 @@ export default new Vuex.Store({
   state: {
     accessToken: localStorage.getItem('accessToken') || '',
     user: JSON.parse(localStorage.getItem('user')) || '',
+    //user: '',
     loading: false,
     showFooter: true,
     site: JSON.parse(localStorage.getItem('site')) || [],

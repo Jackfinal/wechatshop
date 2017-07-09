@@ -148,3 +148,8 @@ export function weiXinPay(data)
 {
   return fetch('weixin.weiXinPay', data, true)
 }
+//支付成功
+export function weiXinPaySuccess(data)
+{
+  return fetch('weixin.weiXinPaySuccess', data, true)
+}

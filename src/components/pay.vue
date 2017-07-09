@@ -22,7 +22,7 @@
 <script>
 import store from '../store'
 import { Indicator,Toast } from 'mint-ui';
-import {weiXinPay} from '../api';
+import {weiXinPay, weiXinPaySuccess} from '../api';
 export default {
   name: 'pay',
   data() {
@@ -87,12 +87,42 @@ export default {
   },
   methods: {
     submit: function(){
+
+
       let data = this.getFrom;
-console.log(data);
       if(!data)return false
       weiXinPay(data).then(res=> {
-        console.log(res);
+
+        if (typeof WeixinJSBridge == "undefined"){
+           if( document.addEventListener ){
+               document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+           }else if (document.attachEvent){
+               document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+               document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+           }
+        }else{
+           this.onBridgeReady(res);
+        }
       })
+    },
+    onBridgeReady:function(result) {
+      let id = result.id;
+      delete result.id;
+      let _this = this;
+      WeixinJSBridge.invoke(
+       'getBrandWCPayRequest',  result,
+       function(res){
+           if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+             weiXinPaySuccess({id:id,openid:_this.user.openid}).then(res=> function(){
+
+             })
+             Toast('支付成功！');
+
+           }else {
+             Toast('支付失败，请稍后再试！');
+           }
+       }
+   );
     }
   }
 }
