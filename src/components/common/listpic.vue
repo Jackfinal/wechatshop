@@ -68,6 +68,9 @@ export default{
     link: {
       type: String,
       required: true
+    },
+    yhjid: {
+      type: String
     }
   },
 
@@ -77,6 +80,11 @@ export default{
         this.info = res;
       });
       this.popupVisible = 1
+    }
+  },
+  created() {
+    if(this.yhjid>0){
+      this.showCoupon(this.yhjid);
     }
   }
 }

@@ -59,6 +59,12 @@ export default new Router({
       path: '/pay',
       name: 'pay',
       component: pay
-    }
+    },
+
+    {
+      path: '/:yhjid',
+      name: 'Index',
+      component: Index
+    },
   ]
 })

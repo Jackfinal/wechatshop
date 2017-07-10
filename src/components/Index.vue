@@ -37,7 +37,7 @@
     <mt-tab-container v-model="selected" value="1">
       <mt-tab-container-item id="1">
         <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/coupon"></mt-cell>
-        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" link="/coupon"></ListPic>
+        <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" :yhjid="yhjid" link="/coupon"></ListPic>
         <mt-cell title="剩余积分" value="0"></mt-cell>
         <mt-cell title="累计积分" value="0"></mt-cell>
       </mt-tab-container-item>
@@ -97,10 +97,12 @@ export default {
       youhuijuan:[],
       news:[],
       which_to_show:'',
+      yhjid: 0,
       user: (typeof (store.state.user) == 'string' && store.state.user!='' )?JSON.parse(store.state.user):store.state.user,
     }
   },
   created() {
+
     GetIndexTop().then(res => {
       this.listBanner = res.list.banner;
       this.siteInfo = res.site;
@@ -115,6 +117,11 @@ export default {
       this.youhuijuan = res.yhj
 
     })
+    let yhjid = this.$route.params.yhjid;
+    if(yhjid >0 )
+    {
+      this.yhjid = yhjid;
+    }
   },
   methods: {
     showShops: function(){
