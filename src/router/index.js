@@ -9,6 +9,7 @@ import coupon from '@/components/coupon'
 import weixin from '@/components/weixin'
 import login from '@/components/login'
 import pay from '@/components/pay'
+import credits from '@/components/credits'
 Vue.use(Router)
 
 export default new Router({
@@ -60,11 +61,16 @@ export default new Router({
       name: 'pay',
       component: pay
     },
+    {
+      path: '/credits',
+      name: 'credits',
+      component: credits
+    },
 
     {
       path: '/:yhjid',
       name: 'Index',
       component: Index
-    },
+    }
   ]
 })

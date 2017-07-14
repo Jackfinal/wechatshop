@@ -153,3 +153,8 @@ export function weiXinPaySuccess(data)
 {
   return fetch('weixin.weiXinPaySuccess', data, true)
 }
+//积分列表
+export function getCreditsLog(data)
+{
+  return fetch('User.getCreditsLog', data, true)
+}

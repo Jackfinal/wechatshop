@@ -29,8 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/index.php': {
-        //target: 'http://www.huachuanchuan.cn',
-        target: 'http://finalyxy.6655.la',
+        target: 'http://www.huachuanchuan.cn',
+        //target: 'http://finalyxy.6655.la',
         changeOrigin: true,
         pathRewrite: {
           '^/index.php': '/index.php'

@@ -62,8 +62,8 @@
           <div class="b"><a href="/" ><span v-text="user.count_yhj"></span><br />再惠卷</a><a href=""><span v-text="user.credits"></span><br />积分</a></div>
         </div>
         <mt-cell title="入会日期" :value="user.regdate"></mt-cell>
-        <mt-cell title="积分历史" to="" is-link :value="user.credits"></mt-cell>
-        <mt-cell title="销卷历史" to="" is-link value="0"></mt-cell>
+        <mt-cell title="积分历史" to="/credits" is-link :value="user.credits"></mt-cell>
+        <mt-cell title="销卷历史" to="/unsetyhj" is-link value="0"></mt-cell>
 
 
       </mt-tab-container-item>
@@ -79,7 +79,7 @@ import Footer from './common/footer.vue'
 import Shop from './common/shop.vue'
 import {GetIndexTop,GetUser} from '../api';
 import store from '../store';
-
+import {MessageBox} from 'mint-ui'
 export default {
   name: 'index',
   components: {
@@ -97,7 +97,7 @@ export default {
       youhuijuan:[],
       news:[],
       which_to_show:'',
-      yhjid: 0,
+      yhjid: '0',
       user: (typeof (store.state.user) == 'string' && store.state.user!='' )?JSON.parse(store.state.user):store.state.user,
     }
   },
@@ -110,12 +110,23 @@ export default {
       //this.youhuijuan = res.list.youhuijuan
       this.news = res.list.shopnews[0];
     })
-
-    GetUser({userid:this.user.id}).then(res=>{
+    let userid = this.user.id?this.user.id:9;
+    GetUser({userid:userid}).then(res=>{
       store.dispatch('saveUser', res)
       this.user = res;
       this.youhuijuan = res.yhj
+      console.log(res.mobile);
+      if(!res.mobile)
+      {
+        MessageBox.confirm('您需要绑定手机号').then(action => {
+          if(action == 'confirm')
+          {
+            this.$router.push('/user')
+          }
+        });
 
+
+      }
     })
     let yhjid = this.$route.params.yhjid;
     if(yhjid >0 )
