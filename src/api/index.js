@@ -85,7 +85,7 @@ async function getData(service, datas, loading)
 
     },error => {
       Toast({
-        message: '网络错误！'+JSON.stringify(error),
+        message: '网络错误！'+JSON.stringify(data) + JSON.stringify(error),
         position: 'bottom',
         duration: 5000
       });
