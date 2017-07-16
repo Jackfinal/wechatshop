@@ -17,21 +17,27 @@
 </template>
 <script>
 import {getCreditsLog} from '../api'
+import { InfiniteScroll,Toast } from 'mint-ui';
 import store from '../store'
 export default {
   name:'credits',
   data() {
     return {
       list: [],
+      loading: false,
       page: 1,
       user: (typeof (store.state.user) == 'string' && store.state.user!='' )?JSON.parse(store.state.user):store.state.user,
     }
   },
   created() {
     this.getList();
-console.log(11);
   },
   methods: {
+    loadMore() {
+      this.loading = true;
+      this.getList();
+      this.loading = false;
+    },
     getList: function() {
       getCreditsLog({page:this.page,userid:this.user.id}).then(res=> {
         if(!res)
@@ -44,12 +50,24 @@ console.log(11);
           this.list = res;
         }else {
           this.list.push(res);
-          this.page ++;
+          this.page += 1;
         }
         console.log(res);
       })
     }
+  },
+  components: {
+    InfiniteScroll
   }
 
 }
 </script>
+
+<style>
+.title-h3{ text-align: center; font-size: 0.3rem; background: #fff; line-height: 0.8rem;box-shadow: 0 2px 8px #ccc;}
+.credits ul{ padding:0.1rem 0.2rem;}
+.credits ul li{list-style:none; overflow: hidden;box-shadow: 0 0 8px #ccc; border-radius: 0.1rem;margin: 0.1rem 0;background: #fff; padding: 0.2rem}
+.creditscredits ul li p{ float: right;  width: 4.0rem}
+.credits ul li p span,.list ul li p strong{ display: block;margin-top: 0.1rem}
+.credits ul li p span{margin-top: 0.2rem }
+</style>

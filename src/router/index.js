@@ -10,6 +10,7 @@ import weixin from '@/components/weixin'
 import login from '@/components/login'
 import pay from '@/components/pay'
 import credits from '@/components/credits'
+import unsetyhj from '@/components/unsetyhj'
 Vue.use(Router)
 
 export default new Router({
@@ -66,7 +67,11 @@ export default new Router({
       name: 'credits',
       component: credits
     },
-
+    {
+      path: '/unsetyhj',
+      name: 'unsetyhj',
+      component: unsetyhj
+    },
     {
       path: '/:yhjid',
       name: 'Index',

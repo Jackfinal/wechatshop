@@ -27,7 +27,7 @@ Vue.directive('title', {
 })
 
 //执行请求微信登录
-/*
+
 router.beforeEach((to, from, next) => {
   if(to.name != 'login' && to.name != 'weixin')
   {
@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
   }else{
     next();
   }
-})*/
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

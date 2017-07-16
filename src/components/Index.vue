@@ -38,8 +38,8 @@
       <mt-tab-container-item id="1">
         <mt-cell title="再优惠" v-if="Object.keys(youhuijuan).length ==0" value="无可有优惠卷" is-link to="/coupon"></mt-cell>
         <ListPic title="再优惠" v-else ftitle="更多" :items="youhuijuan" :yhjid="yhjid" link="/coupon"></ListPic>
-        <mt-cell title="剩余积分" value="0"></mt-cell>
-        <mt-cell title="累计积分" value="0"></mt-cell>
+        <mt-cell title="剩余积分" :value="user.credits"></mt-cell>
+        <mt-cell title="累计积分" :value="user.allcredits"></mt-cell>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <Shop title="门店资讯" :img="news.thumb" :id="news.id" :ftitle="news.description" link="/list"></Shop>
@@ -63,7 +63,7 @@
         </div>
         <mt-cell title="入会日期" :value="user.regdate"></mt-cell>
         <mt-cell title="积分历史" to="/credits" is-link :value="user.credits"></mt-cell>
-        <mt-cell title="销卷历史" to="/unsetyhj" is-link value="0"></mt-cell>
+        <mt-cell title="销卷历史" to="/unsetyhj" is-link :value="user.unsetyhj"></mt-cell>
 
 
       </mt-tab-container-item>
