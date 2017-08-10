@@ -144,7 +144,7 @@ export default {
 
 <style>
 .mint-swipe,.mint-swipe-item,.mint-swipe-item img{
-  height: 3.2rem!important;
+  height: 3.6rem!important;
 }
 .mint-swipe-indicator{background: #e7decf}
 .mint-swipe-item img{width: 100%}
