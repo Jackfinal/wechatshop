@@ -3,6 +3,7 @@
     <bm-marker :position="center" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
     </bm-marker>
   </baidu-map>
+  
 </template>
 
 

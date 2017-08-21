@@ -31,6 +31,7 @@
           <div class="shop">
             <h2>{{site.SITE_TITLE}}<br /><span>{{site.address}}</span></h2>
             <a class="tel" :href="'tel:'+site.tel">
+              
               <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-tel"></use>
               </svg>

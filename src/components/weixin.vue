@@ -30,7 +30,7 @@ export default {
         return ;
       }
       weiXinRedirect({code:code}).then(res=> {
-        store.dispatch('saveUser', res);
+        store.dispatch('saveUser', res);console.log(res);
         this.jump();
         Indicator.close();
       })

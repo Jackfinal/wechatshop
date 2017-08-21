@@ -2,10 +2,8 @@
   <div class="shop">
     <mt-cell v-bind:title="title" is-link v-bind:to="link" ></mt-cell>
     <div class="shoplist" >
-      <a :href="'/info/'+id">
-        <img :src="img" >
-        <span>{{ftitle}}</span>
-      </a>
+      <router-link :to="{ name: 'info', params: {id: id} }"><img :src="img" >
+      <span>{{ftitle}}</span></router-link>
     </div>
   </div>
 </template>
