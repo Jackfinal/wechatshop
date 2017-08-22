@@ -118,7 +118,7 @@ export default {
       console.log(res.mobile);
       if(!res.mobile)
       {
-        MessageBox.confirm('您需要绑定手机号').then(action => {
+        MessageBox.confirm('请输入会员号(手机号码即可)').then(action => {
           if(action == 'confirm')
           {
             this.$router.push('/user')
@@ -157,7 +157,7 @@ export default {
 }
 .mt-tab-item-span{display: block;}
 .table-tar{width: 33%}
-.index .title h1{color:#3d4959}
+.index .title h1{color:#3d4959;    margin-top: 0.2rem;}
 .index .title p{color: #929699; margin-bottom: 0.4rem}
 .index .mint-tab-container .mint-tab-container-item{ padding: 0rem}
 .index .mint-navbar{margin-top: 0.1rem}
